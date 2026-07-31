@@ -141,10 +141,40 @@ export default class WalletAccountReadOnlyTron extends WalletAccountReadOnly {
     /**
      * Returns a transaction's receipt.
      *
+     * @deprecated Use {@link getTransaction} instead, which returns a normalized, finality-based receipt. The raw tron receipt remains available on its `receipt` property.
      * @param {string} hash - The transaction's hash.
      * @returns {Promise<TronTransactionReceipt | null>} The receipt, or null if the transaction has not been included in a block yet.
      */
     getTransactionReceipt(hash: string): Promise<TronTransactionReceipt | null>;
+    /**
+     * Returns a normalized, finality-based receipt for a transaction.
+     *
+     * A transaction included in a block is `confirmed`; once its block has been
+     * solidified (irreversible) it becomes `final`.
+     *
+     * @param {string} hash - The transaction's hash.
+     * @returns {Promise<TronTransactionInfo | null>} The normalized receipt, or null if the transaction is not known.
+     */
+    getTransaction(hash: string): Promise<TronTransactionInfo | null>;
+    /**
+     * Returns whether a committed transaction executed successfully.
+     *
+     * @protected
+     * @param {TronTransactionReceipt} receipt - The native tron receipt.
+     * @returns {boolean} The execution result.
+     */
+    protected _isTransactionSuccessful(receipt: TronTransactionReceipt): boolean;
+    /**
+     * Returns the number of the latest solidified (irreversible) block, or null when it can't be resolved.
+     *
+     * @protected
+     * @returns {Promise<number | null>} The solidified block number, or null.
+     */
+    protected _getSolidifiedBlockNumber(): Promise<number | null>;
+    /** @protected @type {number} */
+    protected get _defaultWaitInterval(): number;
+    /** @protected @type {number} */
+    protected get _defaultWaitTimeout(): number;
     /**
      * Returns the bandwidth cost of a tron web's transaction.
      *
@@ -164,6 +194,11 @@ export default class WalletAccountReadOnlyTron extends WalletAccountReadOnly {
 }
 export type Transaction = import("tronweb").Types.Transaction;
 export type TronTransactionReceipt = import("tronweb").Types.TransactionInfo;
+export type TransactionReceipt = import("@tetherto/wdk-wallet").TransactionReceipt;
+export type TronTransactionInfo = TransactionReceipt & {
+    confirmations: number | null;
+    receipt: TronTransactionReceipt | null;
+};
 export type AccountResourceMessage = import("tronweb").Types.AccountResourceMessage;
 export type TriggerSmartContractOptions = import("tronweb").Types.TriggerSmartContractOptions;
 export type ContractFunctionParameter = import("tronweb").Types.ContractFunctionParameter;

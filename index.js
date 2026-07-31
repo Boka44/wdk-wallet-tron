@@ -14,6 +14,7 @@
 'use strict'
 
 /** @typedef {import('tronweb').TransactionInfo} TronTransactionReceipt */
+/** @typedef {import('./src/wallet-account-read-only-tron.js').TronTransactionInfo} TronTransactionInfo */
 
 /** @typedef {import('@tetherto/wdk-wallet').FeeRates} FeeRates */
 
