@@ -590,7 +590,7 @@ describe('WalletAccountReadOnlyTron', () => {
       const info = await account.getTransaction(TRANSACTION_HASH)
 
       expect(info).toMatchObject({
-        id: TRANSACTION_HASH,
+        hash: TRANSACTION_HASH,
         finality: 'confirmed',
         success: true,
         block: 12345,

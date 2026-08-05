@@ -479,7 +479,7 @@ export default class WalletAccountReadOnlyTron extends WalletAccountReadOnly {
     const isFinal = solidifiedBlock !== null && blockNumber !== null && blockNumber <= solidifiedBlock
 
     return {
-      id: hash,
+      hash,
       finality: isFinal ? 'final' : 'confirmed',
       success: this._isTransactionSuccessful(receipt),
       block: blockNumber ?? undefined,
