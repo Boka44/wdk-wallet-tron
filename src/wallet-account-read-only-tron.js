@@ -482,7 +482,7 @@ export default class WalletAccountReadOnlyTron extends WalletAccountReadOnly {
       id: hash,
       finality: isFinal ? 'final' : 'confirmed',
       success: this._isTransactionSuccessful(receipt),
-      blockRef: blockNumber ?? undefined,
+      block: blockNumber ?? undefined,
       fee: receipt.fee != null ? BigInt(receipt.fee) : undefined,
       confirmations,
       receipt

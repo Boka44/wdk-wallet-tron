@@ -593,7 +593,7 @@ describe('WalletAccountReadOnlyTron', () => {
         id: TRANSACTION_HASH,
         finality: 'confirmed',
         success: true,
-        blockRef: 12345,
+        block: 12345,
         fee: 1000n,
         confirmations: 0
       })
