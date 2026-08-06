@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, jest, test } from '@jest/globals'
 
 import { TronWeb, Trx } from 'tronweb'
+import { NoSuchElementError } from '@tetherto/wdk-wallet'
 
 const ADDRESS = 'TXngH8bVadn9ZWtKBgjKQcqN1GsZ7A1jcb'
 
@@ -566,13 +567,11 @@ describe('WalletAccountReadOnlyTron', () => {
   describe('getTransaction', () => {
     const TRANSACTION_HASH = 'abc123def456'
 
-    test('should return null when the transaction is not known', async () => {
+    test('should throw NoSuchElementError when the transaction is not known', async () => {
       getUnconfirmedTransactionInfoMock.mockResolvedValue({})
 
-      const info = await account.getTransaction(TRANSACTION_HASH)
-
+      await expect(account.getTransaction(TRANSACTION_HASH)).rejects.toThrow(NoSuchElementError)
       expect(getUnconfirmedTransactionInfoMock).toHaveBeenCalledWith(TRANSACTION_HASH)
-      expect(info).toBeNull()
       expect(getConfirmedCurrentBlockMock).not.toHaveBeenCalled()
     })
 

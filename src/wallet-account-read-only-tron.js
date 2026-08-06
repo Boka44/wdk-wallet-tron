@@ -14,7 +14,7 @@
 
 'use strict'
 
-import { WalletAccountReadOnly } from '@tetherto/wdk-wallet'
+import { WalletAccountReadOnly, NoSuchElementError } from '@tetherto/wdk-wallet'
 
 import FailoverProvider from '@tetherto/wdk-failover-provider'
 
@@ -456,7 +456,8 @@ export default class WalletAccountReadOnlyTron extends WalletAccountReadOnly {
    * solidified (irreversible) it becomes `final`.
    *
    * @param {string} hash - The transaction's hash.
-   * @returns {Promise<TronTransactionInfo | null>} The normalized receipt, or null if the transaction is not known.
+   * @returns {Promise<TronTransactionInfo>} The normalized receipt.
+   * @throws {NoSuchElementError} If no transaction has been found for the given hash.
    */
   async getTransaction (hash) {
     if (!this._tronWeb) {
@@ -466,7 +467,7 @@ export default class WalletAccountReadOnlyTron extends WalletAccountReadOnly {
     const receipt = await this._tronWeb.trx.getUnconfirmedTransactionInfo(hash)
 
     if (!receipt || Object.keys(receipt).length === 0) {
-      return null
+      throw new NoSuchElementError(`No transaction found for '${hash}'.`)
     }
 
     const blockNumber = receipt.blockNumber ?? null

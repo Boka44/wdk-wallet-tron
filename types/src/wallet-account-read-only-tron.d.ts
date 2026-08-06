@@ -153,9 +153,10 @@ export default class WalletAccountReadOnlyTron extends WalletAccountReadOnly {
      * solidified (irreversible) it becomes `final`.
      *
      * @param {string} hash - The transaction's hash.
-     * @returns {Promise<TronTransactionInfo | null>} The normalized receipt, or null if the transaction is not known.
+     * @returns {Promise<TronTransactionInfo>} The normalized receipt.
+     * @throws {NoSuchElementError} If no transaction has been found for the given hash.
      */
-    getTransaction(hash: string): Promise<TronTransactionInfo | null>;
+    getTransaction(hash: string): Promise<TronTransactionInfo>;
     /**
      * Returns whether a committed transaction executed successfully.
      *
