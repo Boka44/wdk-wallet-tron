@@ -523,14 +523,7 @@ export default class WalletAccountReadOnlyTron extends WalletAccountReadOnly {
   }
 
   /** @protected @type {number} */
-  get _defaultWaitInterval () {
-    return 3000
-  }
-
-  /** @protected @type {number} */
-  get _defaultWaitTimeout () {
-    return 90000
-  }
+  static _DEFAULT_WAIT_TIMEOUT = 90000
 
   /**
    * Returns the bandwidth cost of a tron web's transaction.

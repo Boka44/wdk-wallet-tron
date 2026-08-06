@@ -173,9 +173,7 @@ export default class WalletAccountReadOnlyTron extends WalletAccountReadOnly {
      */
     protected _getSolidifiedBlockNumber(): Promise<number | null>;
     /** @protected @type {number} */
-    protected get _defaultWaitInterval(): number;
-    /** @protected @type {number} */
-    protected get _defaultWaitTimeout(): number;
+    protected static _DEFAULT_WAIT_TIMEOUT: number;
     /**
      * Returns the bandwidth cost of a tron web's transaction.
      *
