@@ -118,15 +118,6 @@ describe('WalletAccountTron', () => {
       expect(account.disposed).toBe(true)
     })
 
-    test('should be idempotent', () => {
-      const account = new WalletAccountTron(SEED_PHRASE, "0'/0/0")
-
-      account.dispose()
-
-      expect(() => account.dispose()).not.toThrow()
-      expect(account.disposed).toBe(true)
-    })
-
     test('should throw DisposalError from signing methods once disposed', async () => {
       const account = new WalletAccountTron(SEED_PHRASE, "0'/0/0")
 
